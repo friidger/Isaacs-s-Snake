@@ -53,3 +53,17 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') changeDir(1);
     if (e.key === 'ArrowRight') changeDir(-1);
 });
+
+const tail = currentSnake.pop();
+squares[tail].classList.remove('snake');
+
+const newHead = currentSnake[0] + direction;
+
+currentSnake.unshift(newHead);
+squares[newHead].classList.add('snake');
+
+function move() {}
+
+setInterval(move,200);
+
+document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' && direction !== -1) {}});
