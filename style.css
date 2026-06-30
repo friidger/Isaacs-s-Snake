@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: rgb(20, 20, 20);
     color: white;
     font-family: sans-serif;
     display: flex;
@@ -9,10 +9,30 @@ body {
     margin: 0;
 }
 
-.game-container {
-    background: black;
+.game–container {
+    background: rgb(12, 12, 12);
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     text-align: center;
 }
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+    background: rgb(255, 0, 0);
+    border: 4px solid white;
+}
+
+#grid div { border: 0.1px solid rgb(175, 0, 0); }
+
+.snake { background-color: rgb(177, 177, 177); border-radius: 2px; }
+.apple { background-color: green; border-radius: 50%; }
+
+.controls { margin: 15px 0; }
+.arrow { width: 60px; height: 60px; font-size: 24px; font-weight: bold; margin: 4px; cursor: pointer; background: rgb(184, 0, 0); border: 2px solid rgb(184, 0, 0); color: #166534; border-radius: 12px; transition: background 0.2s; }
+.arrow:active { background: #86efac }
+#start–btn { padding: 12px 30px; background: #16a34a; color: rgb(172, 60, 60); border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
