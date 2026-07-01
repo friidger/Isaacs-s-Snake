@@ -18,12 +18,17 @@ function createBoard() {
 }
 createBoard();
 startGame();
-generateApple();
 
 function startGame() {
     currentSnake.forEach(index => squares[index].classList.remove('snake'));
     squares[appleIndex].classList.remove('apple');
     clearInterval(timerId);
+    currentSnake = [2, 1, 0];
+    score = 0; direction = 1; intervalTime = 200;
+    scoreDisplay.textContent = score;
+    currentSnake.forEach(index => squares[index].classList.add('snake'));
+    generateApple();
+    timerId = setInterval(move, intervalTime);
 }
 
 function move() {
@@ -32,6 +37,24 @@ function move() {
     const hitRight = (currentSnake[0] % 20 === 19 && direction === 1);
     const hitLeft = (currentSnake[0] % 20 === 0 && direction === -1);
     const hitSelf = squares[currentSnake[0] + direction]?.classList.contains('snake');
+
+    if (hitRight || hitBottom || hitTop || hitLeft || hitSelf) {
+        return clearInterval(timerId);
+    }
+
+    const tail = currentSnake.pop();
+    squares[tail].classList.remove('snake');
+    const newHead = currentSnake[0] + direction;
+
+    if (squares[newHead].classList.contains('apple')) {
+        squares[newHead].classList.remove('apple');
+        squares[tail].classList.add('snake');
+        currentSnake.push(tail);
+        score++; scoreDisplay.textContent = score;
+        generateApple();
+    }
+    currentSnake.unshift(newHead);
+    squares[newHead].classList.add('snake');
 }
 
 function generateApple() {
@@ -53,17 +76,3 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') changeDir(1);
     if (e.key === 'ArrowRight') changeDir(-1);
 });
-
-const tail = currentSnake.pop();
-squares[tail].classList.remove('snake');
-
-const newHead = currentSnake[0] + direction;
-
-currentSnake.unshift(newHead);
-squares[newHead].classList.add('snake');
-
-function move() {}
-
-setInterval(move,200);
-
-document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' && direction !== -1) {}});
