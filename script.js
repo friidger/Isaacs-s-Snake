@@ -8,7 +8,6 @@ let score = 0;
 let timerId = 0;
 let intervalTime = 200;
 
-// יצירת הלוח (400 משבצות
 function createBoard() {
     for (let i = 0; i < 400; i++) {
         const square = document.createElement('div');
@@ -17,14 +16,15 @@ function createBoard() {
     }
 }
 createBoard();
-startGame();
 
 function startGame() {
     currentSnake.forEach(index => squares[index].classList.remove('snake'));
     squares[appleIndex].classList.remove('apple');
     clearInterval(timerId);
     currentSnake = [2, 1, 0];
-    score = 0; direction = 1; intervalTime = 200;
+    score = 0; 
+    direction = 1; 
+    intervalTime = 200;
     scoreDisplay.textContent = score;
     currentSnake.forEach(index => squares[index].classList.add('snake'));
     generateApple();
@@ -39,7 +39,7 @@ function move() {
     const hitSelf = squares[currentSnake[0] + direction]?.classList.contains('snake');
 
     if (hitRight || hitBottom || hitTop || hitLeft || hitSelf) {
-        return clearInterval(timerId);
+        return endGame();
     }
 
     const tail = currentSnake.pop();
@@ -111,4 +111,7 @@ function handleSwipe() {
             else changeDir(-20);
         }
     }
+}
+function endGame(){
+    return clearInterval(timerId);
 }
