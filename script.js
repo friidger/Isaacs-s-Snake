@@ -55,6 +55,18 @@ function move() {
     }
     currentSnake.unshift(newHead);
     squares[newHead].classList.add('snake');
+
+    
+    document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    }, false);
+
+    document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+    }, false);
 }
 
 function generateApple() {
@@ -76,3 +88,27 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') changeDir(1);
     if (e.key === 'ArrowRight') changeDir(-1);
 });
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && direction !== -1) {
+        direction = 1;
+    }
+});
+
+function handleSwipe() {
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+
+    if (Math.max(absDx. absDy) > 30) {
+        if (absDx > absDy) {
+            if (dx > 0) changeDir(-1);
+            else changeDir(1);
+        } else {
+            if (dy > 0) changeDir(20);
+            else changeDir(-20);
+        }
+    }
+}
